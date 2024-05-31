@@ -16,7 +16,8 @@ namespace ssis.Mappers
                 Id = subjectModel.Id,
                 Name = subjectModel.Name,
                 Description = subjectModel.Description,
-                NumberOfWeeklyClasses = subjectModel.NumberOfWeeklyClasses
+                NumberOfWeeklyClasses = subjectModel.NumberOfWeeklyClasses,
+                LiteratureUsed = subjectModel.LiteratureUsed.Select(b => b.ToBookDto()).ToList()
             };
         } 
 

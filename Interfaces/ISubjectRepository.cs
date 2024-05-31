@@ -13,5 +13,7 @@ namespace ssis.Interfaces
         Task<Subject?> GetByIdAsync(int id);
 
         Task<Subject> CreateAsync(Subject subjectModel);
+
+        Task<bool> SubjectExists(int id);
     }
 }

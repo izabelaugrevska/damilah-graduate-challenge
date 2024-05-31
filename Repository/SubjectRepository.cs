@@ -26,12 +26,17 @@ namespace ssis.Repository
 
         public async Task<List<Subject>> GetAllAsync()
         {
-           return await _context.Subjects.ToListAsync();
+           return await _context.Subjects.Include(b => b.LiteratureUsed).ToListAsync();
         }
 
         public async Task<Subject?> GetByIdAsync(int id)
         {
-            return await _context.Subjects.FindAsync(id);
+            return await _context.Subjects.Include(b => b.LiteratureUsed).FirstOrDefaultAsync(i => i.Id == id);
+        }
+
+        public Task<bool> SubjectExists(int id)
+        {
+            return _context.Subjects.AnyAsync(s => s.Id == id);
         }
     }
 }
