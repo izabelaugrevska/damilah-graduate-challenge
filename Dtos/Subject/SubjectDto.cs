@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ssis.Dtos.Book;
 
 namespace ssis.Dtos.Subject
 {
@@ -12,5 +13,6 @@ namespace ssis.Dtos.Subject
         public string Description { get; set; } = string.Empty;
         public int NumberOfWeeklyClasses { get; set; }
     
+        public List<BookDto> LiteratureUsed { get; set; }
     }
 }
