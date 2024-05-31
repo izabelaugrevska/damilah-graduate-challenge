@@ -74,3 +74,4 @@ C:\Users\GAMING\Projects\ssis\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Ru
 C:\Users\GAMING\Projects\ssis\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\GAMING\Projects\ssis\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\GAMING\Projects\ssis\obj\Debug\net7.0\ssis.csproj.Up2Date
+C:\Users\GAMING\Projects\ssis\obj\Debug\net7.0\ssis.sourcelink.json
