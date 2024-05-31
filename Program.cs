@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ssis.Data;
+using ssis.Interfaces;
+using ssis.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDBContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
 
 var app = builder.Build();
 

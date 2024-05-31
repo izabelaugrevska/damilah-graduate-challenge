@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ssis.Data;
 using ssis.Dtos.Subject;
+using ssis.Interfaces;
 using ssis.Mappers;
 
 namespace ssis.Controllers
@@ -14,16 +15,16 @@ namespace ssis.Controllers
     [ApiController]
     public class SubjectController : ControllerBase
     {
-        private readonly ApplicationDBContext _context;
-        public SubjectController(ApplicationDBContext context)
+        private readonly ISubjectRepository _subjectRepo;
+        public SubjectController( ISubjectRepository subjectRepo)
         {
-            _context = context;
+            _subjectRepo = subjectRepo;
         }
 
         [HttpGet]
         public async  Task<IActionResult> GetAll() 
         {
-            var subjects = await _context.Subjects.ToListAsync();
+            var subjects = await _subjectRepo.GetAllAsync();
             
             var subjectDto = subjects.Select(s => s.ToSubjectDto());
             
@@ -33,7 +34,7 @@ namespace ssis.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var subject = await _context.Subjects.FindAsync(id);
+            var subject = await _subjectRepo.GetByIdAsync(id);
 
             if(subject == null)
             {
@@ -47,8 +48,8 @@ namespace ssis.Controllers
         public async Task<IActionResult> Create([FromBody] CreateSubjectRequestDto subjectDto)
         {
             var subjectModel = subjectDto.ToSubjectFromCreateDTO();
-            await _context.Subjects.AddAsync(subjectModel);
-            await _context.SaveChangesAsync();
+            
+            await _subjectRepo.CreateAsync(subjectModel);
 
             return CreatedAtAction(nameof(GetById), new { id = subjectModel.Id }, subjectModel.ToSubjectDto());
         }
