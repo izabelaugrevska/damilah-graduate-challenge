@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using ssis.Data;
 using ssis.Interfaces;
 using ssis.Repository;
-using ssis.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,9 +22,6 @@ builder.Services.AddDbContext<ApplicationDBContext>(options => {
 
 builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
-
-builder.Services.AddScoped<ISubjectService, SubjectService>();
-builder.Services.AddScoped<IBookService, BookService>();
 
 
 var app = builder.Build();

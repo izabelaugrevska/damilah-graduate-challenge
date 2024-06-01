@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ssis")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c4dd51b8dc7e14f332fa85610cd54031ed7e6a25")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f4b20c5d08cc158b3956bad9f22bab87d92455db")]
 [assembly: System.Reflection.AssemblyProductAttribute("ssis")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ssis")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
