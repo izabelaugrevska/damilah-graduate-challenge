@@ -15,43 +15,38 @@ namespace ssis.Controllers
     [ApiController]
     public class SubjectController : ControllerBase
     {
-        private readonly ISubjectRepository _subjectRepo;
-        public SubjectController( ISubjectRepository subjectRepo)
+        private readonly ISubjectService _subjectService;
+        public SubjectController( ISubjectService subjectService )
         {
-            _subjectRepo = subjectRepo;
+            _subjectService = subjectService;
         }
 
         [HttpGet]
         public async  Task<IActionResult> GetAll() 
         {
-            var subjects = await _subjectRepo.GetAllAsync();
-            
-            var subjectDto = subjects.Select(s => s.ToSubjectDto());
-            
+            var subjects = await _subjectService.GetAllSubjectsAsync();
             return Ok(subjects);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var subject = await _subjectRepo.GetByIdAsync(id);
+            var subject = await _subjectService.GetSubjectByIdAsync(id);
 
             if(subject == null)
             {
                 return NotFound();
             }
 
-            return Ok(subject.ToSubjectDto());
+            return Ok(subject);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateSubjectRequestDto subjectDto)
         {
-            var subjectModel = subjectDto.ToSubjectFromCreateDTO();
-            
-            await _subjectRepo.CreateAsync(subjectModel);
+             var createdSubject = await _subjectService.CreateSubjectAsync(subjectDto);
 
-            return CreatedAtAction(nameof(GetById), new { id = subjectModel.Id }, subjectModel.ToSubjectDto());
+            return CreatedAtAction(nameof(GetById), new { id = createdSubject.Id }, createdSubject);
         }
     }
 }
