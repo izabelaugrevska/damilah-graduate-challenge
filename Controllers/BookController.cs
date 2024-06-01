@@ -13,49 +13,49 @@ namespace ssis.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        private readonly IBookRepository _bookRepo;
-        private readonly ISubjectRepository _subjectRepo;
+        private readonly IBookService _bookService;
+        private readonly ISubjectService _subjectService;
 
-        public BookController(IBookRepository bookRepo, ISubjectRepository subjectRepo)
+        public BookController( IBookService bookService, ISubjectService subjectService )
         {
-            _bookRepo = bookRepo;
-            _subjectRepo = subjectRepo;
+            _bookService = bookService;
+            _subjectService = subjectService;
+
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var books = await _bookRepo.GetAllAsync();
+            var books = await _bookService.GetAllBooksAsync();
 
-            var bookDto = books.Select(b => b.ToBookDto());
-
-            return Ok(bookDto);
+            return Ok(books);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var book = await _bookRepo.GetByIdAsync(id);
+            var book = await _bookService.GetBookByIdAsync(id);
             if(book == null)
             {
                 return NotFound();
             }
             
-            return Ok(book.ToBookDto());
+            return Ok(book);
 
         }
 
         [HttpPost("{subjectId}")]
         public async Task<IActionResult> Create([FromRoute] int subjectId, CreateBookDto bookDto)
         {
-            if(!await _subjectRepo.SubjectExists(subjectId))
+            try
             {
-                return BadRequest("Subject does not exist");
+                var createdBook = await _bookService.CreateBookAsync(subjectId, bookDto);
+                return CreatedAtAction(nameof(GetById), new { id = createdBook.BookId }, createdBook);
             }
-            var bookModel = bookDto.ToBookFromCreate(subjectId);
-            await _bookRepo.CreateAsync(bookModel);
-
-            return CreatedAtAction(nameof(GetById), new { id = bookModel}, bookModel.ToBookDto());
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
         }
     }
