@@ -58,5 +58,19 @@ namespace ssis.Controllers
             }
 
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateBookWithInfo([FromBody] CreateBookDto request)
+        {
+            var book = await _bookService.CreateBookWithInfoAsync(request.BookName, request.SubjectId);
+            return Ok(book);
+        }
+
+        [HttpGet("info/{title}")]
+        public async Task<IActionResult> GetBookInfo(string title)
+        {
+            var bookInfo = await _bookService.GetBookInfoAsync(title);
+            return Ok(bookInfo);
+        }
     }
 }

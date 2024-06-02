@@ -18,19 +18,12 @@ namespace ssis.Data
         
         public DbSet<Book> Books { get; set; }
 
-        public DbSet<Author> Author { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     base.OnModelCreating(modelBuilder);
 
     // Seeding Authors
-    modelBuilder.Entity<Author>().HasData(
-        new Author { Id = 1, Name = "Author 1", LastName = "Last Name 1" },
-        new Author { Id = 2, Name = "Author 2", LastName = "Last Name 2" },
-        new Author { Id = 3, Name = "Author 3", LastName = "Last Name 3" }
-    );
 
     // Seeding Subjects
     modelBuilder.Entity<Subject>().HasData(
@@ -64,18 +57,6 @@ namespace ssis.Data
         new Book { BookId = 3, BookName = "Art Book", SubjectId = 3 }
     );
 
-    // Seeding many-to-many relationships
-    modelBuilder.Entity<Book>()
-        .HasMany(b => b.Author)
-        .WithMany(a => a.Books)
-        .UsingEntity(j => j.HasData(
-            new { BooksBookId = 1, AuthorId = 1 },
-            new { BooksBookId = 1, AuthorId = 2 },
-            new { BooksBookId = 2, AuthorId = 2 },
-            new { BooksBookId = 2, AuthorId = 3 },
-            new { BooksBookId = 3, AuthorId = 1 },
-            new { BooksBookId = 3, AuthorId = 3 }
-        ));
 }
 
     }

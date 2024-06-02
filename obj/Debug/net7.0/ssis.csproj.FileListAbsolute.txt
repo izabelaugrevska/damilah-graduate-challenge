@@ -79,3 +79,11 @@ C:\Users\GAMING\Projects\ssis\bin\Debug\net7.0\Microsoft.AspNetCore.JsonPatch.dl
 C:\Users\GAMING\Projects\ssis\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\GAMING\Projects\ssis\bin\Debug\net7.0\Newtonsoft.Json.dll
 C:\Users\GAMING\Projects\ssis\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
+C:\Users\GAMING\Projects\ssis\bin\Debug\net7.0\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\GAMING\Projects\ssis\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\GAMING\Projects\ssis\bin\Debug\net7.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\GAMING\Projects\ssis\bin\Debug\net7.0\Microsoft.Extensions.Http.dll
+C:\Users\GAMING\Projects\ssis\bin\Debug\net7.0\Microsoft.Extensions.Logging.dll
+C:\Users\GAMING\Projects\ssis\bin\Debug\net7.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\GAMING\Projects\ssis\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
+C:\Users\GAMING\Projects\ssis\bin\Debug\net7.0\Microsoft.Extensions.Primitives.dll

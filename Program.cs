@@ -17,6 +17,7 @@ builder.Services.AddCors(options =>
                    .AllowAnyHeader();
         });
 });
+builder.Services.AddHttpClient<OpenLibraryService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -33,11 +34,9 @@ builder.Services.AddDbContext<ApplicationDBContext>(options => {
 
 builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
-builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 
 builder.Services.AddScoped<ISubjectService, SubjectService>();
 builder.Services.AddScoped<IBookService, BookService>();
-builder.Services.AddScoped<IAuthorService, AuthorService>();
 
 
 var app = builder.Build();

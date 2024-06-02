@@ -13,11 +13,14 @@ namespace ssis.Services
     {
         private readonly IBookRepository _bookRepo;
         private readonly ISubjectRepository _subjectRepo;
+        private readonly OpenLibraryService _openLibraryService;
 
-        public BookService(IBookRepository bookRepo, ISubjectRepository subjectRepo)
+
+        public BookService(IBookRepository bookRepo, ISubjectRepository subjectRepo, OpenLibraryService openLibraryService)
         {
             _bookRepo = bookRepo;
             _subjectRepo = subjectRepo;
+            _openLibraryService = openLibraryService;
         }
         public async Task<BookDto> CreateBookAsync(int subjectId, CreateBookDto bookDto)
         {
@@ -42,6 +45,23 @@ namespace ssis.Services
         {
             var book = await _bookRepo.GetByIdAsync(id);
             return book?.ToBookDto();
+        }
+
+        public async Task<string> GetBookInfoAsync(string title)
+        {
+            return await _openLibraryService.GetBookInfoByTitleAsync(title);
+        }
+
+        public async Task<BookDto> CreateBookWithInfoAsync(string title, int subjectId)
+        {
+            var bookInfo = await _openLibraryService.GetBookInfoByTitleAsync(title);
+            var book = new Book
+        {
+            BookName = title,
+            SubjectId = subjectId,
+        };
+        await _bookRepo.CreateAsync(book);
+        return book.ToBookDto();
         }
     }
 }
