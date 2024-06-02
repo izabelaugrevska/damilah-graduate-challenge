@@ -44,20 +44,20 @@ namespace ssis.Controllers
 
         }
 
-        [HttpPost("{subjectId}")]
-        public async Task<IActionResult> Create([FromRoute] int subjectId, CreateBookDto bookDto)
-        {
-            try
-            {
-                var createdBook = await _bookService.CreateBookAsync(subjectId, bookDto);
-                return CreatedAtAction(nameof(GetById), new { id = createdBook.BookId }, createdBook);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+        // [HttpPost("{subjectId}")]
+        // public async Task<IActionResult> Create([FromRoute] int subjectId, CreateBookDto bookDto)
+        // {
+        //     try
+        //     {
+        //         var createdBook = await _bookService.CreateBookAsync(subjectId, bookDto);
+        //         return CreatedAtAction(nameof(GetById), new { id = createdBook.BookId }, createdBook);
+        //     }
+        //     catch (ArgumentException ex)
+        //     {
+        //         return BadRequest(ex.Message);
+        //     }
 
-        }
+        // }
 
         [HttpPost]
         public async Task<IActionResult> CreateBookWithInfo([FromBody] CreateBookDto request)
