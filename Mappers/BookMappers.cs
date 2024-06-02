@@ -15,8 +15,8 @@ namespace ssis.Mappers
             {
                 BookId = bookModel.BookId,
                 BookName = bookModel.BookName,
-                Author = bookModel.Author,
-                SubjectId = bookModel.SubjectId
+                SubjectId = bookModel.SubjectId,
+                Author = bookModel.Author.Select(a => a.ToAuthorDto()).ToList()
             };
         }
 
@@ -25,7 +25,6 @@ namespace ssis.Mappers
             return new Book
             {
                 BookName = bookDto.BookName,
-                Author = bookDto.Author,
                 SubjectId = subjectId
             };
         }
