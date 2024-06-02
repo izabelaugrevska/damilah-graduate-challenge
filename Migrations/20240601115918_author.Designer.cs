@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ssis.Data;
 
@@ -11,9 +12,11 @@ using ssis.Data;
 namespace ssis.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240601115918_author")]
+    partial class author
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,6 +59,10 @@ namespace ssis.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookId"));
 
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("BookName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -97,7 +104,7 @@ namespace ssis.Migrations
             modelBuilder.Entity("ssis.Models.Author", b =>
                 {
                     b.HasOne("ssis.Models.Book", "Book")
-                        .WithMany("Author")
+                        .WithMany("LiteratureUsed")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -116,7 +123,7 @@ namespace ssis.Migrations
 
             modelBuilder.Entity("ssis.Models.Book", b =>
                 {
-                    b.Navigation("Author");
+                    b.Navigation("LiteratureUsed");
                 });
 
             modelBuilder.Entity("ssis.Models.Subject", b =>

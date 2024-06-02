@@ -12,7 +12,6 @@ namespace ssis.Models
         public int? SubjectId {get; set; }
         public Subject? Subject { get; set; }
         public string BookName { get; set; } = string.Empty;
-
-        public string Author { get; set; } = string.Empty;
+        public List<Author> Author { get; set; } = new List<Author>();
     }
 }
