@@ -42,12 +42,12 @@ namespace ssis.Controllers
 
         }
 
-        [HttpPost("{bookId}")]
-        public async Task<IActionResult> Create([FromRoute] int bookId, CreateAuthorDto authorDto)
+        [HttpPost]
+        public async Task<IActionResult> Create( CreateAuthorDto authorDto)
         {
             try
             {
-                var createdAuthor = await _authorService.CreateAuthorAsync(bookId, authorDto);
+                var createdAuthor = await _authorService.CreateAuthorAsync( authorDto);
                 return CreatedAtAction(nameof(GetById), new { id = createdAuthor.Id }, createdAuthor);
             }
             catch (ArgumentException ex)

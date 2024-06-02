@@ -25,12 +25,16 @@ namespace ssis.Repository
 
         public async Task<List<Author>> GetAllAsync()
         {
-            return await _context.Author.ToListAsync();
+            return await _context.Author.Include(b => b.Books).ToListAsync();
+            
+
         }
 
         public async Task<Author?> GetByIdAsync(int id)
         {
-            return await _context.Author.FindAsync(id);
+     
+            return await _context.Author.Include(b => b.Books).FirstOrDefaultAsync(i => i.Id == id);
+
         }
     }
 }

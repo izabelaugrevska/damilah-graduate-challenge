@@ -18,14 +18,9 @@ namespace ssis.Services
             _bookRepo = bookRepo;
             _authorRepo = authorRepo;
         }
-        public async Task<AuthorDto> CreateAuthorAsync(int bookId, CreateAuthorDto authorDto)
+        public async Task<AuthorDto> CreateAuthorAsync( CreateAuthorDto authorDto)
         {
-            if (!await _bookRepo.BookExists(bookId))
-            {
-                throw new ArgumentException("Book does not exist");
-            }
-
-            var authorModel = authorDto.ToAuthorFromCreate(bookId);
+            var authorModel = authorDto.ToAuthorFromCreate();
             await _authorRepo.CreateAsync(authorModel);
 
             return authorModel.ToAuthorDto();

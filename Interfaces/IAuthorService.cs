@@ -10,6 +10,6 @@ namespace ssis.Interfaces
     {
         Task<IEnumerable<AuthorDto>> GetAllAuthorsAsync();
         Task<AuthorDto> GetAuthorByIdAsync(int id);
-        Task<AuthorDto> CreateAuthorAsync(int bookId, CreateAuthorDto authorDto);
+        Task<AuthorDto> CreateAuthorAsync( CreateAuthorDto authorDto);
     }
 }

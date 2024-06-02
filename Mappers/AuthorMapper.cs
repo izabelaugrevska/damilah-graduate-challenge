@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ssis.Dtos.Author;
+using ssis.Dtos.Book;
 using ssis.Models;
 
 namespace ssis.Mappers
@@ -16,17 +17,23 @@ namespace ssis.Mappers
                 Id = authorModel.Id,
                 Name = authorModel.Name,
                 LastName = authorModel.LastName,
-                BookId = authorModel.BookId
+                Books = authorModel.Books?.Select(b => new BookDto
+            {
+                BookId = b.BookId,
+                BookName = b.BookName,
+                SubjectId = b.SubjectId
+                // Avoid circular reference by not including Authors here
+            }).ToList()
             };
         }
 
-        public static Author ToAuthorFromCreate(this CreateAuthorDto authorDto, int bookId)
+        public static Author ToAuthorFromCreate(this CreateAuthorDto authorDto)
         {
             return new Author
             {
                 Name = authorDto.Name,
                 LastName = authorDto.LastName,
-                BookId = bookId
+               // BookId = bookId
             };
         }
     }
