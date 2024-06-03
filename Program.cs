@@ -24,6 +24,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddLogging();
 
 builder.Services.AddControllers().AddNewtonsoftJson(options => {
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
@@ -48,11 +49,11 @@ using (var scope = app.Services.CreateScope())
     try
     {
         var context = services.GetRequiredService<ApplicationDBContext>();
-        context.Database.Migrate(); // Applies any pending migrations
+        context.Database.Migrate(); 
     }
     catch (Exception ex)
     {
-        // Handle exceptions here
+        
         Console.WriteLine("An error occurred while migrating or seeding the database: " + ex.Message);
     }
 }

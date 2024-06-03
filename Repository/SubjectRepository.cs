@@ -34,9 +34,19 @@ namespace ssis.Repository
             return await _context.Subjects.Include(b => b.LiteratureUsed).FirstOrDefaultAsync(i => i.Id == id);
         }
 
-        public Task<bool> SubjectExists(int id)
+        public async Task<bool> SubjectExists(int? id = null, string name = null )
         {
-            return _context.Subjects.AnyAsync(s => s.Id == id);
+            if (id.HasValue)
+        {
+            return await _context.Subjects.AnyAsync(s => s.Id == id.Value);
         }
+        if (!string.IsNullOrEmpty(name))
+        {
+            return await _context.Subjects.AnyAsync(s => s.Name == name);
+        }
+        return false;
+        }
+
+       
     }
 }

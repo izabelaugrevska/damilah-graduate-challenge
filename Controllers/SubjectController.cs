@@ -48,5 +48,18 @@ namespace ssis.Controllers
 
             return CreatedAtAction(nameof(GetById), new { id = createdSubject.Id }, createdSubject);
         }
+
+        [HttpPost("import")]
+        public async Task<IActionResult> ImportSubjects([FromBody] List<CreateSubjectFromJsonDto> subjects)
+        {
+            if (subjects == null || subjects.Count == 0)
+            {
+                return BadRequest("No subjects to import.");
+            }
+
+            await _subjectService.CreateSubjectsAsync(subjects);
+
+            return Ok("Subjects imported successfully");
+        }
     }
 }

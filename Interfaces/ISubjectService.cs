@@ -11,6 +11,8 @@ namespace ssis.Interfaces
         Task<IEnumerable<SubjectDto>> GetAllSubjectsAsync();
         Task<SubjectDto> GetSubjectByIdAsync(int id);
         Task<SubjectDto> CreateSubjectAsync(CreateSubjectRequestDto subjectDto);
-        Task<bool> SubjectExistsAsync(int subjectId);
+        Task<bool> SubjectExistsAsync(int? subjectId = null, string name = null);
+        Task CreateJsonSubjectAsync(CreateSubjectFromJsonDto subjectDto);
+        Task CreateSubjectsAsync(List<CreateSubjectFromJsonDto> subjects);
     }
 }
