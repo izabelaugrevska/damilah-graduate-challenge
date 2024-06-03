@@ -16,10 +16,14 @@ namespace ssis.Controllers
         private readonly IBookService _bookService;
         private readonly ISubjectService _subjectService;
 
-        public BookController( IBookService bookService, ISubjectService subjectService )
+            private readonly ILogger<BookController> _logger;
+
+
+        public BookController( IBookService bookService, ISubjectService subjectService, ILogger<BookController> logger )
         {
             _bookService = bookService;
             _subjectService = subjectService;
+            _logger = logger;
 
         }
 
@@ -67,9 +71,25 @@ namespace ssis.Controllers
         }
 
         [HttpGet("info/{title}")]
-        public async Task<IActionResult> GetBookInfo(string title)
+        public async Task<IActionResult> GetBookInfo([FromRoute] string title)
         {
+            // var bookInfo = await _bookService.GetBookInfoAsync(title);
+            // return Ok(bookInfo);
+            Console.WriteLine($"title from console: {title}");
+            _logger.LogInformation($"Received request to get book info for title: {title}");
+
+            if (string.IsNullOrEmpty(title))
+            {
+                return BadRequest("Title is required");
+            }
+
             var bookInfo = await _bookService.GetBookInfoAsync(title);
+
+            if (bookInfo == null)
+            {
+                return NotFound("Book not found");
+            }
+
             return Ok(bookInfo);
         }
     }
