@@ -23,9 +23,6 @@ namespace ssis.Data
 {
     base.OnModelCreating(modelBuilder);
 
-    // Seeding Authors
-
-    // Seeding Subjects
     modelBuilder.Entity<Subject>().HasData(
         new Subject
         {
@@ -47,14 +44,31 @@ namespace ssis.Data
             Name = "Art",
             Description = "Basic Art",
             NumberOfWeeklyClasses = 3
+        },
+        new Subject
+        {
+            Id = 4,
+            Name = "French",
+            Description = "Begginer French",
+            NumberOfWeeklyClasses = 4
+        },
+        new Subject
+        {
+            Id = 5,
+            Name = "Chemistry",
+            Description = "Basic Chemistry",
+            NumberOfWeeklyClasses = 5
         }
     );
 
-    // Seeding Books
     modelBuilder.Entity<Book>().HasData(
-        new Book { BookId = 1, BookName = "Math Book", SubjectId = 1 },
-        new Book { BookId = 2, BookName = "English Book", SubjectId = 2 },
-        new Book { BookId = 3, BookName = "Art Book", SubjectId = 3 }
+        new Book { BookId = 1, BookName = "Basic technical mathematics with calculus", SubjectId = 1 },
+        new Book { BookId = 2, BookName = "Essential Maths", SubjectId = 1 },
+        new Book { BookId = 3, BookName = "The Great Gatsby", SubjectId = 2 },
+        new Book { BookId = 4, BookName = "To Kill A Mockingbird", SubjectId = 2 },
+        new Book { BookId = 5, BookName = "The Story Of Art", SubjectId = 3 },
+        new Book { BookId = 6, BookName = "501 Essential French Verbs", SubjectId = 4 },
+        new Book { BookId = 7, BookName = "Organic Chemistry", SubjectId = 5 }
     );
 
 }

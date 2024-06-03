@@ -12,8 +12,8 @@ using ssis.Data;
 namespace ssis.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20240602183032_change")]
-    partial class change
+    [Migration("20240603092959_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,20 +50,44 @@ namespace ssis.Migrations
                         new
                         {
                             BookId = 1,
-                            BookName = "Math Book",
+                            BookName = "Basic technical mathematics with calculus",
                             SubjectId = 1
                         },
                         new
                         {
                             BookId = 2,
-                            BookName = "English Book",
-                            SubjectId = 2
+                            BookName = "Essential Maths",
+                            SubjectId = 1
                         },
                         new
                         {
                             BookId = 3,
-                            BookName = "Art Book",
+                            BookName = "The Great Gatsby",
+                            SubjectId = 2
+                        },
+                        new
+                        {
+                            BookId = 4,
+                            BookName = "To Kill A Mockingbird",
+                            SubjectId = 2
+                        },
+                        new
+                        {
+                            BookId = 5,
+                            BookName = "The Story Of Art",
                             SubjectId = 3
+                        },
+                        new
+                        {
+                            BookId = 6,
+                            BookName = "501 Essential French Verbs",
+                            SubjectId = 4
+                        },
+                        new
+                        {
+                            BookId = 7,
+                            BookName = "Organic Chemistry",
+                            SubjectId = 5
                         });
                 });
 
@@ -111,6 +135,20 @@ namespace ssis.Migrations
                             Description = "Basic Art",
                             Name = "Art",
                             NumberOfWeeklyClasses = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Begginer French",
+                            Name = "French",
+                            NumberOfWeeklyClasses = 4
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Basic Chemistry",
+                            Name = "Chemistry",
+                            NumberOfWeeklyClasses = 5
                         });
                 });
 
