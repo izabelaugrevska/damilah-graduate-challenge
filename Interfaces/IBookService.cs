@@ -11,6 +11,7 @@ namespace ssis.Interfaces
     {
         Task<IEnumerable<BookDto>> GetAllBooksAsync();
         Task<BookDto> GetBookByIdAsync(int id);
-        Task<BookDto> CreateBookAsync(int subjectId, CreateBookDto bookDto);
+         Task<BookDto> CreateBookWithInfoAsync(string title, int subjectId);
+         Task<BookInfoDto> GetBookInfoAsync(string title);
     }
 }

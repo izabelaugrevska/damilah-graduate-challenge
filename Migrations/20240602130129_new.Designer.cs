@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ssis.Data;
 
@@ -11,9 +12,11 @@ using ssis.Data;
 namespace ssis.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240602130129_new")]
+    partial class @new
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,94 @@ namespace ssis.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("AuthorBook", b =>
+                {
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BooksBookId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AuthorId", "BooksBookId");
+
+                    b.HasIndex("BooksBookId");
+
+                    b.ToTable("AuthorBook");
+
+                    b.HasData(
+                        new
+                        {
+                            AuthorId = 1,
+                            BooksBookId = 1
+                        },
+                        new
+                        {
+                            AuthorId = 2,
+                            BooksBookId = 1
+                        },
+                        new
+                        {
+                            AuthorId = 2,
+                            BooksBookId = 2
+                        },
+                        new
+                        {
+                            AuthorId = 3,
+                            BooksBookId = 2
+                        },
+                        new
+                        {
+                            AuthorId = 1,
+                            BooksBookId = 3
+                        },
+                        new
+                        {
+                            AuthorId = 3,
+                            BooksBookId = 3
+                        });
+                });
+
+            modelBuilder.Entity("ssis.Models.Author", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Author");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            LastName = "Last Name 1",
+                            Name = "Author 1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            LastName = "Last Name 2",
+                            Name = "Author 2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            LastName = "Last Name 3",
+                            Name = "Author 3"
+                        });
+                });
 
             modelBuilder.Entity("ssis.Models.Book", b =>
                 {
@@ -109,6 +200,21 @@ namespace ssis.Migrations
                             Name = "Art",
                             NumberOfWeeklyClasses = 3
                         });
+                });
+
+            modelBuilder.Entity("AuthorBook", b =>
+                {
+                    b.HasOne("ssis.Models.Author", null)
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ssis.Models.Book", null)
+                        .WithMany()
+                        .HasForeignKey("BooksBookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ssis.Models.Book", b =>

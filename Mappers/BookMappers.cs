@@ -16,7 +16,6 @@ namespace ssis.Mappers
                 BookId = bookModel.BookId,
                 BookName = bookModel.BookName,
                 SubjectId = bookModel.SubjectId,
-                Author = bookModel.Author.Select(a => a.ToAuthorDto()).ToList()
             };
         }
 

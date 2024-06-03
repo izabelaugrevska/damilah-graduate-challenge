@@ -16,10 +16,14 @@ namespace ssis.Controllers
         private readonly IBookService _bookService;
         private readonly ISubjectService _subjectService;
 
-        public BookController( IBookService bookService, ISubjectService subjectService )
+            private readonly ILogger<BookController> _logger;
+
+
+        public BookController( IBookService bookService, ISubjectService subjectService, ILogger<BookController> logger )
         {
             _bookService = bookService;
             _subjectService = subjectService;
+            _logger = logger;
 
         }
 
@@ -44,19 +48,49 @@ namespace ssis.Controllers
 
         }
 
-        [HttpPost("{subjectId}")]
-        public async Task<IActionResult> Create([FromRoute] int subjectId, CreateBookDto bookDto)
+        // [HttpPost("{subjectId}")]
+        // public async Task<IActionResult> Create([FromRoute] int subjectId, CreateBookDto bookDto)
+        // {
+        //     try
+        //     {
+        //         var createdBook = await _bookService.CreateBookAsync(subjectId, bookDto);
+        //         return CreatedAtAction(nameof(GetById), new { id = createdBook.BookId }, createdBook);
+        //     }
+        //     catch (ArgumentException ex)
+        //     {
+        //         return BadRequest(ex.Message);
+        //     }
+
+        // }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateBookWithInfo([FromBody] CreateBookDto request)
         {
-            try
+            var book = await _bookService.CreateBookWithInfoAsync(request.BookName, request.SubjectId);
+            return Ok(book);
+        }
+
+        [HttpGet("info/{title}")]
+        public async Task<IActionResult> GetBookInfo([FromRoute] string title)
+        {
+            // var bookInfo = await _bookService.GetBookInfoAsync(title);
+            // return Ok(bookInfo);
+            Console.WriteLine($"title from console: {title}");
+            _logger.LogInformation($"Received request to get book info for title: {title}");
+
+            if (string.IsNullOrEmpty(title))
             {
-                var createdBook = await _bookService.CreateBookAsync(subjectId, bookDto);
-                return CreatedAtAction(nameof(GetById), new { id = createdBook.BookId }, createdBook);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
+                return BadRequest("Title is required");
             }
 
+            var bookInfo = await _bookService.GetBookInfoAsync(title);
+
+            if (bookInfo == null)
+            {
+                return NotFound("Book not found");
+            }
+
+            return Ok(bookInfo);
         }
     }
 }

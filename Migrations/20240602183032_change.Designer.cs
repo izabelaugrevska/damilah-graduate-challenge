@@ -12,8 +12,8 @@ using ssis.Data;
 namespace ssis.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20240602110241_aut")]
-    partial class aut
+    [Migration("20240602183032_change")]
+    partial class change
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,32 +24,6 @@ namespace ssis.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ssis.Models.Author", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("Author");
-                });
 
             modelBuilder.Entity("ssis.Models.Book", b =>
                 {
@@ -71,6 +45,26 @@ namespace ssis.Migrations
                     b.HasIndex("SubjectId");
 
                     b.ToTable("Books");
+
+                    b.HasData(
+                        new
+                        {
+                            BookId = 1,
+                            BookName = "Math Book",
+                            SubjectId = 1
+                        },
+                        new
+                        {
+                            BookId = 2,
+                            BookName = "English Book",
+                            SubjectId = 2
+                        },
+                        new
+                        {
+                            BookId = 3,
+                            BookName = "Art Book",
+                            SubjectId = 3
+                        });
                 });
 
             modelBuilder.Entity("ssis.Models.Subject", b =>
@@ -95,17 +89,29 @@ namespace ssis.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Subjects");
-                });
 
-            modelBuilder.Entity("ssis.Models.Author", b =>
-                {
-                    b.HasOne("ssis.Models.Book", "Book")
-                        .WithMany("Author")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Basic Math",
+                            Name = "Math",
+                            NumberOfWeeklyClasses = 5
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Basic English",
+                            Name = "English",
+                            NumberOfWeeklyClasses = 4
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Basic Art",
+                            Name = "Art",
+                            NumberOfWeeklyClasses = 3
+                        });
                 });
 
             modelBuilder.Entity("ssis.Models.Book", b =>
@@ -115,11 +121,6 @@ namespace ssis.Migrations
                         .HasForeignKey("SubjectId");
 
                     b.Navigation("Subject");
-                });
-
-            modelBuilder.Entity("ssis.Models.Book", b =>
-                {
-                    b.Navigation("Author");
                 });
 
             modelBuilder.Entity("ssis.Models.Subject", b =>
