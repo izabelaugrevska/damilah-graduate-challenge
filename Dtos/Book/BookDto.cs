@@ -9,7 +9,7 @@ namespace ssis.Dtos.Book
     {
         public int BookId { get; set; }
 
-        public int? SubjectId {get; set; }
+        public int? SubjectId { get; set; }
         public string BookName { get; set; } = string.Empty;
 
     }

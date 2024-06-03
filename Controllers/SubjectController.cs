@@ -16,13 +16,13 @@ namespace ssis.Controllers
     public class SubjectController : ControllerBase
     {
         private readonly ISubjectService _subjectService;
-        public SubjectController( ISubjectService subjectService )
+        public SubjectController(ISubjectService subjectService)
         {
             _subjectService = subjectService;
         }
 
         [HttpGet]
-        public async  Task<IActionResult> GetAll() 
+        public async Task<IActionResult> GetAll()
         {
             var subjects = await _subjectService.GetAllSubjectsAsync();
             return Ok(subjects);
@@ -33,7 +33,7 @@ namespace ssis.Controllers
         {
             var subject = await _subjectService.GetSubjectByIdAsync(id);
 
-            if(subject == null)
+            if (subject == null)
             {
                 return NotFound();
             }
@@ -44,7 +44,7 @@ namespace ssis.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateSubjectRequestDto subjectDto)
         {
-             var createdSubject = await _subjectService.CreateSubjectAsync(subjectDto);
+            var createdSubject = await _subjectService.CreateSubjectAsync(subjectDto);
 
             return CreatedAtAction(nameof(GetById), new { id = createdSubject.Id }, createdSubject);
         }

@@ -19,7 +19,7 @@ namespace ssis.Mappers
                 NumberOfWeeklyClasses = subjectModel.NumberOfWeeklyClasses,
                 LiteratureUsed = subjectModel.LiteratureUsed.Select(b => b.ToBookDto()).ToList()
             };
-        } 
+        }
 
         public static Subject ToSubjectFromCreateDTO(this CreateSubjectRequestDto subjectDto)
         {

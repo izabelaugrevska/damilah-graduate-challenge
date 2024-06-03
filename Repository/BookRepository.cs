@@ -9,7 +9,7 @@ using ssis.Models;
 
 namespace ssis.Repository
 {
-    
+
     public class BookRepository : IBookRepository
     {
         private readonly ApplicationDBContext _context;

@@ -7,7 +7,7 @@ namespace ssis.Dtos.Book
 {
     public class CreateBookFromJsonDto
     {
-            public string BookName { get; set; }
+        public string BookName { get; set; }
 
     }
 }

@@ -10,7 +10,6 @@ namespace ssis.Interfaces
     {
         Task<List<Book>> GetAllAsync();
         Task<Book?> GetByIdAsync(int id);
-
         Task<Book> CreateAsync(Book bookModel);
         Task<bool> BookExists(int id);
     }

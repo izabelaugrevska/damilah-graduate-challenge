@@ -8,8 +8,7 @@ namespace ssis.Models
     public class Book
     {
         public int BookId { get; set; }
-
-        public int? SubjectId {get; set; }
+        public int? SubjectId { get; set; }
         public Subject? Subject { get; set; }
         public string BookName { get; set; } = string.Empty;
     }

@@ -10,6 +10,5 @@ namespace ssis.Dtos.Book
         public string BookName { get; set; } = string.Empty;
         public int SubjectId { get; set; }
 
-        
     }
 }

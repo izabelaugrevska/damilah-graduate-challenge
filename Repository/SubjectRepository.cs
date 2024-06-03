@@ -26,7 +26,7 @@ namespace ssis.Repository
 
         public async Task<List<Subject>> GetAllAsync()
         {
-           return await _context.Subjects.Include(b => b.LiteratureUsed).ToListAsync();
+            return await _context.Subjects.Include(b => b.LiteratureUsed).ToListAsync();
         }
 
         public async Task<Subject?> GetByIdAsync(int id)
@@ -34,19 +34,19 @@ namespace ssis.Repository
             return await _context.Subjects.Include(b => b.LiteratureUsed).FirstOrDefaultAsync(i => i.Id == id);
         }
 
-        public async Task<bool> SubjectExists(int? id = null, string name = null )
+        public async Task<bool> SubjectExists(int? id = null, string name = null)
         {
             if (id.HasValue)
-        {
-            return await _context.Subjects.AnyAsync(s => s.Id == id.Value);
-        }
-        if (!string.IsNullOrEmpty(name))
-        {
-            return await _context.Subjects.AnyAsync(s => s.Name == name);
-        }
-        return false;
+            {
+                return await _context.Subjects.AnyAsync(s => s.Id == id.Value);
+            }
+            if (!string.IsNullOrEmpty(name))
+            {
+                return await _context.Subjects.AnyAsync(s => s.Name == name);
+            }
+            return false;
         }
 
-       
+
     }
 }
